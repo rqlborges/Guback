@@ -13,10 +13,14 @@ import CoreMotion
 class ViewController: UIViewController {
     
     @IBOutlet weak var row: UILabel!
-    
     @IBOutlet weak var yaw: UILabel!
-
     @IBOutlet weak var pitch: UILabel!
+
+    //Direction flags
+    var isNorth = false
+    var isSouth = false
+    var isWest = false
+    var isEast = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +30,8 @@ class ViewController: UIViewController {
         if manager.isDeviceMotionAvailable{
             manager.deviceMotionUpdateInterval = 0.1
             manager.startDeviceMotionUpdates(using: CMAttitudeReferenceFrame.xTrueNorthZVertical, to: OperationQueue.main, withHandler: {
-                (_, error) in
+                (deviceMotionData, error) in
+                
                 if error != nil{
                     print ("Deu onda")
                 }else{
@@ -47,6 +52,30 @@ class ViewController: UIViewController {
                         }else{
                             self.row.text = "XABLAU"
                         }
+                        
+                        if yaw > 78 && yaw < 182 {
+                            self.isNorth = false
+                            self.isSouth = true
+                            self.isWest = false
+                            self.isEast = false
+                        } else if yaw > 182 && yaw < 258 {
+                            self.isNorth = false
+                            self.isSouth = false
+                            self.isWest = false
+                            self.isEast = true
+                        } else if yaw > 258 && yaw < 350 {
+                            self.isNorth = true
+                            self.isSouth = false
+                            self.isWest = false
+                            self.isEast = false
+                            
+                        } else {
+                            self.isNorth = false
+                            self.isSouth = false
+                            self.isWest = true
+                            self.isEast = false
+                        }
+
                     }
                 }
             })
