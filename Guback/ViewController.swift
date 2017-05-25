@@ -43,15 +43,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if manager.isDeviceMotionAvailable{
             manager.deviceMotionUpdateInterval = 0.1
             manager.startDeviceMotionUpdates(using: CMAttitudeReferenceFrame.xTrueNorthZVertical, to: OperationQueue.main, withHandler: {
-                (deviceMotionData, error) in
+                (_, error) in
                 
                 if error != nil{
                     print ("Deu onda")
                 }else{
-                    if let data = deviceMotionData{
+                    if let data = manager.deviceMotion?.attitude{
 //                        self.row.text = "roll: \(String(format: "%.2f", data.attitude.roll * 180 / Double.pi)) degrees"
 //                        self.pitch.text = "pitch: \(String(format: "%.2f", data.attitude.pitch * 180 / Double.pi)) degrees"
-                        var yaw = data.attitude.yaw * 180 / Double.pi
+                        var yaw = data.yaw * 180 / Double.pi
                         
                         if yaw < 0 {
                             yaw = (yaw * 0) + 180 + (180+yaw)
@@ -84,13 +84,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                             self.isEast = false
                         }
                         
-                        if Int((locationManager.location?.distance(from: fci))!) < 10{
+                        if locationManager.location!.distance(from: fci) < 200{
                             if self.isEast{
                                 self.label.text = "Você está olhando para o prédio 31 - Faculdade de Computação e Informática"
-                                self.imageView.image = UIImage(named: "fci.jpg")
+                                self.imageView.image = UIImage(named: "fci.JPG")
                             }else if self.isWest{
                                 self.label.text = "Você está olhando para o Prédio do Grafeno - O prédio mais novo do Mackenzie!"
-                                self.imageView.image = UIImage(named: "grafeno.jpg")
+                                self.imageView.image = UIImage(named: "grafeno.JPG")
                             }else if self.isNorth{
                                 self.label.text = "Ao longe, você avista a lanchonete Borges"
                                 self.imageView.image = UIImage(named: "Borges.jpg")
@@ -98,7 +98,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 self.label.text = "Para esse lado, se encontra a saída para a Consolação"
                                 self.imageView.image = UIImage(named: "consolation.jpg")
                             }
-                        } else if Int((locationManager.location?.distance(from: starbucks))!) < 10{
+                        } else if locationManager.location!.distance(from: starbucks) < 200{
                             if self.isEast{
                                 self.label.text = "Você está olhando para o Starbucks - Nem vai, é muito caro :c"
                                 self.imageView.image = UIImage(named: "hipster.jpg")
@@ -107,12 +107,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 self.imageView.image = UIImage(named: "praca.jpg")
                             }else if self.isNorth{
                                 self.label.text = "Você está olhando na direção do Prédio de Arquitetura"
-                                self.imageView.image = UIImage(named: "arquitetura.jpg")
+                                self.imageView.image = UIImage(named: "arquitetura.png")
                             }else{
                                 self.label.text = "Você está olhando para a escadaria central do mackenzie"
                                 self.imageView.image = UIImage(named: "escadona.jpg")
                             }
-                        } else if Int((locationManager.location?.distance(from: quadra))!) < 10{
+                        } else if locationManager.location!.distance(from: quadra) < 200{
                             if self.isEast{
                                 self.label.text = "Você está olhando para a gráfica"
                                 self.imageView.image = UIImage(named: "grafica.jpg")
@@ -126,9 +126,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 self.label.text = "Você está olhando para esmalteria"
                                 self.imageView.image = UIImage(named: "esmalteria.jpg")
                             }
-
-
-                    }
+                        }else{
+                            self.imageView.image = UIImage(named: "werner.jpg")
+                            self.label.text = "Voce está na piscina do Mackenzie"
+                        }
                     }
                 }
             })
