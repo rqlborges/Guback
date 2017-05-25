@@ -84,7 +84,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                             self.isEast = false
                         }
                         
-                        if locationManager.location!.distance(from: fci) < 200{
+                        if locationManager.location!.distance(from: fci) < 90{
                             if self.isEast{
                                 self.label.text = "Você está olhando para o prédio 31 - Faculdade de Computação e Informática"
                                 self.imageView.image = UIImage(named: "fci.JPG")
@@ -98,7 +98,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 self.label.text = "Para esse lado, se encontra a saída para a Consolação"
                                 self.imageView.image = UIImage(named: "consolation.jpg")
                             }
-                        } else if locationManager.location!.distance(from: starbucks) < 200{
+                        } else if locationManager.location!.distance(from: starbucks) < 90{
                             if self.isEast{
                                 self.label.text = "Você está olhando para o Starbucks - Nem vai, é muito caro :c"
                                 self.imageView.image = UIImage(named: "hipster.jpg")
@@ -112,7 +112,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                 self.label.text = "Você está olhando para a escadaria central do mackenzie"
                                 self.imageView.image = UIImage(named: "escadona.jpg")
                             }
-                        } else if locationManager.location!.distance(from: quadra) < 200{
+                        } else if locationManager.location!.distance(from: quadra) < 90{
                             if self.isEast{
                                 self.label.text = "Você está olhando para a gráfica"
                                 self.imageView.image = UIImage(named: "grafica.jpg")
