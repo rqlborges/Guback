@@ -83,6 +83,10 @@
                             <constraint firstAttribute="trailing" secondItem="iWM-cJ-vkC" secondAttribute="trailing" id="leN-hQ-sqe"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="SE9-rn-up5" id="dWT-wk-TVk"/>
+                        <outlet property="label" destination="2dd-xj-Ogu" id="NDZ-to-CWe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

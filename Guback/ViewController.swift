@@ -10,11 +10,12 @@ import UIKit
 import CoreLocation
 import CoreMotion
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
     
-    @IBOutlet weak var row: UILabel!
-    @IBOutlet weak var yaw: UILabel!
-    @IBOutlet weak var pitch: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var label: UILabel!
+    
 
     //Direction flags
     var isNorth = false
@@ -26,6 +27,18 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let manager = CMMotionManager()
+        let locationManager = CLLocationManager()
+        
+        locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+        }
+        
+        let fci = CLLocation(latitude: -23.5477136308547, longitude: -46.6516098473655)
+        let starbucks = CLLocation(latitude: -23.5476108687218, longitude: -46.6521164495932)
+        let quadra = CLLocation(latitude: -23.5468416614677, longitude: -46.652158191471)
         
         if manager.isDeviceMotionAvailable{
             manager.deviceMotionUpdateInterval = 0.1
@@ -35,23 +48,18 @@ class ViewController: UIViewController {
                 if error != nil{
                     print ("Deu onda")
                 }else{
-                    if let data = manager.deviceMotion?.attitude{
-                        var yaw = Float(data.yaw * 180 / Double.pi)
-//                        if yaw < 0{
-//                            yaw = (yaw * -1) + 180
-//                        }
+                    if let data = deviceMotionData{
+//                        self.row.text = "roll: \(String(format: "%.2f", data.attitude.roll * 180 / Double.pi)) degrees"
+//                        self.pitch.text = "pitch: \(String(format: "%.2f", data.attitude.pitch * 180 / Double.pi)) degrees"
+                        var yaw = data.attitude.yaw * 180 / Double.pi
                         
-                        
-                        
-                        self.yaw.text = "Yaw (z): \(yaw) graus"
-                        
-                        if yaw <= -105 && yaw >= -160{
-                            self.row.text = "FCI"
-                        }else if (yaw > 110 && yaw < 185) || (yaw > -185 && yaw < -140){
-                            self.row.text = "Copa e LP"
-                        }else{
-                            self.row.text = "XABLAU"
+                        if yaw < 0 {
+                            yaw = (yaw * 0) + 180 + (180+yaw)
                         }
+//                            self.yaw.text = "yaw: \(String(format: "%.2f", yaw)) degrees"
+//                        } else {
+//                            self.yaw.text = "yaw: \(String(format: "%.2f", yaw)) degrees"
+//                        }
                         
                         if yaw > 78 && yaw < 182 {
                             self.isNorth = false
@@ -75,7 +83,52 @@ class ViewController: UIViewController {
                             self.isWest = true
                             self.isEast = false
                         }
+                        
+                        if Int((locationManager.location?.distance(from: fci))!) < 10{
+                            if self.isEast{
+                                self.label.text = "Você está olhando para o prédio 31 - Faculdade de Computação e Informática"
+                                self.imageView.image = UIImage(named: "fci.jpg")
+                            }else if self.isWest{
+                                self.label.text = "Você está olhando para o Prédio do Grafeno - O prédio mais novo do Mackenzie!"
+                                self.imageView.image = UIImage(named: "grafeno.jpg")
+                            }else if self.isNorth{
+                                self.label.text = "Ao longe, você avista a lanchonete Borges"
+                                self.imageView.image = UIImage(named: "Borges.jpg")
+                            }else{
+                                self.label.text = "Para esse lado, se encontra a saída para a Consolação"
+                                self.imageView.image = UIImage(named: "consolation.jpg")
+                            }
+                        } else if Int((locationManager.location?.distance(from: starbucks))!) < 10{
+                            if self.isEast{
+                                self.label.text = "Você está olhando para o Starbucks - Nem vai, é muito caro :c"
+                                self.imageView.image = UIImage(named: "hipster.jpg")
+                            }else if self.isWest{
+                                self.label.text = "Você está olhando para a Praça de Alimentação"
+                                self.imageView.image = UIImage(named: "praca.jpg")
+                            }else if self.isNorth{
+                                self.label.text = "Você está olhando na direção do Prédio de Arquitetura"
+                                self.imageView.image = UIImage(named: "arquitetura.jpg")
+                            }else{
+                                self.label.text = "Você está olhando para a escadaria central do mackenzie"
+                                self.imageView.image = UIImage(named: "escadona.jpg")
+                            }
+                        } else if Int((locationManager.location?.distance(from: quadra))!) < 10{
+                            if self.isEast{
+                                self.label.text = "Você está olhando para a gráfica"
+                                self.imageView.image = UIImage(named: "grafica.jpg")
+                            }else if self.isWest{
+                                self.label.text = "Você está olhando para a quadra"
+                                self.imageView.image = UIImage(named: "quadra.jpg")
+                            }else if self.isNorth{
+                                self.label.text = "Você está olhando para a saída Piaui"
+                                self.imageView.image = UIImage(named: "saidaItambe.jpg")
+                            }else{
+                                self.label.text = "Você está olhando para esmalteria"
+                                self.imageView.image = UIImage(named: "esmalteria.jpg")
+                            }
 
+
+                    }
                     }
                 }
             })
