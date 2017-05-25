@@ -31,12 +31,21 @@ class ViewController: UIViewController {
                     print ("Deu onda")
                 }else{
                     if let data = manager.deviceMotion?.attitude{
-                        let yaw = Float(data.yaw * 180 / Double.pi)
+                        var yaw = Float(data.yaw * 180 / Double.pi)
+//                        if yaw < 0{
+//                            yaw = (yaw * -1) + 180
+//                        }
                         
-                        if yaw <= -80 && yaw >= -170{
+                        
+                        
+                        self.yaw.text = "Yaw (z): \(yaw) graus"
+                        
+                        if yaw <= -105 && yaw >= -160{
                             self.row.text = "FCI"
+                        }else if (yaw > 110 && yaw < 185) || (yaw > -185 && yaw < -140){
+                            self.row.text = "Copa e LP"
                         }else{
-                            self.row.text = "hmmmm"
+                            self.row.text = "XABLAU"
                         }
                     }
                 }
