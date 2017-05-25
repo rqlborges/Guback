@@ -13,10 +13,14 @@ import CoreMotion
 class ViewController: UIViewController {
     
     @IBOutlet weak var row: UILabel!
-    
     @IBOutlet weak var yaw: UILabel!
-
     @IBOutlet weak var pitch: UILabel!
+
+    //Direction flags
+    var isNorth = false
+    var isSouth = false
+    var isWest = false
+    var isEast = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,18 +30,46 @@ class ViewController: UIViewController {
         if manager.isDeviceMotionAvailable{
             manager.deviceMotionUpdateInterval = 0.1
             manager.startDeviceMotionUpdates(using: CMAttitudeReferenceFrame.xTrueNorthZVertical, to: OperationQueue.main, withHandler: {
-                (_, error) in
+                (deviceMotionData, error) in
+                
                 if error != nil{
                     print ("Deu onda")
                 }else{
-                    if let data = manager.deviceMotion?.attitude{
-                        let yaw = Float(data.yaw * 180 / Double.pi)
+                    if let data = deviceMotionData{
+                        self.row.text = "roll: \(String(format: "%.2f", data.attitude.roll * 180 / Double.pi)) degrees"
+                        self.pitch.text = "pitch: \(String(format: "%.2f", data.attitude.pitch * 180 / Double.pi)) degrees"
+                        var yaw = data.attitude.yaw * 180 / Double.pi
                         
-                        if yaw <= -80 && yaw >= -170{
-                            self.row.text = "FCI"
-                        }else{
-                            self.row.text = "hmmmm"
+                        if yaw < 0 {
+                            yaw = (yaw * 0) + 180 + (180+yaw)
+                            self.yaw.text = "yaw: \(String(format: "%.2f", yaw)) degrees"
+                        } else {
+                            self.yaw.text = "yaw: \(String(format: "%.2f", yaw)) degrees"
                         }
+                        
+                        if yaw > 78 && yaw < 182 {
+                            self.isNorth = false
+                            self.isSouth = true
+                            self.isWest = false
+                            self.isEast = false
+                        } else if yaw > 182 && yaw < 258 {
+                            self.isNorth = false
+                            self.isSouth = false
+                            self.isWest = false
+                            self.isEast = true
+                        } else if yaw > 258 && yaw < 350 {
+                            self.isNorth = true
+                            self.isSouth = false
+                            self.isWest = false
+                            self.isEast = false
+                            
+                        } else {
+                            self.isNorth = false
+                            self.isSouth = false
+                            self.isWest = true
+                            self.isEast = false
+                        }
+
                     }
                 }
             })
