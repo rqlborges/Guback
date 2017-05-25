@@ -51,7 +51,20 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="g9w-fj-gwf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1bW-MO-1YY"/>
+                            <constraint firstItem="2Yf-9M-Jc4" firstAttribute="top" secondItem="oMA-8W-ih9" secondAttribute="bottom" constant="8" id="4T3-1v-5tp"/>
+                            <constraint firstItem="g9w-fj-gwf" firstAttribute="top" secondItem="2Yf-9M-Jc4" secondAttribute="bottom" constant="8" id="lat-gL-703"/>
+                            <constraint firstItem="oMA-8W-ih9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="qbD-CD-Qps"/>
+                            <constraint firstItem="2Yf-9M-Jc4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tJ9-vO-CIS"/>
+                            <constraint firstItem="oMA-8W-ih9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uWa-Vh-v5w"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pitch" destination="g9w-fj-gwf" id="5Y9-bB-gSR"/>
+                        <outlet property="row" destination="oMA-8W-ih9" id="kd2-1a-52V"/>
+                        <outlet property="yaw" destination="2Yf-9M-Jc4" id="rzw-PA-Dv4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

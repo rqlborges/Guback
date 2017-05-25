@@ -193,7 +193,7 @@
 				TargetAttributes = {
 					60641A291ED740B8004DC3FB = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = HJ3JBWEJT5;
+						DevelopmentTeam = 98H8AFME2H;
 						ProvisioningStyle = Automatic;
 					};
 					60641A3D1ED740B8004DC3FB = {
@@ -415,7 +415,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HJ3JBWEJT5;
+				DEVELOPMENT_TEAM = 98H8AFME2H;
 				INFOPLIST_FILE = Guback/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mackmobile.Guback;
@@ -428,7 +428,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HJ3JBWEJT5;
+				DEVELOPMENT_TEAM = 98H8AFME2H;
 				INFOPLIST_FILE = Guback/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mackmobile.Guback;
@@ -514,6 +514,7 @@
 				60641A541ED740B8004DC3FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		60641A551ED740B8004DC3FB /* Build configuration list for PBXNativeTarget "GubackTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +523,7 @@
 				60641A571ED740B8004DC3FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		60641A581ED740B8004DC3FB /* Build configuration list for PBXNativeTarget "GubackUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +532,7 @@
 				60641A5A1ED740B8004DC3FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
